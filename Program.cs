@@ -1,30 +1,5 @@
-﻿using System;
+using System;
 using System.IO;
-public static class ArrowMenu
-{
-    public static int ShowMenu(string[] options)
-    {
-        int currentChoice = 0;
-
-        while (true)
-        {
-            ConsoleKeyInfo keyInfo = Console.ReadKey();
-
-            if (keyInfo.Key == ConsoleKey.UpArrow)
-            {
-                currentChoice = (currentChoice - 1 + options.Length) % options.Length;
-            }
-            else if (keyInfo.Key == ConsoleKey.DownArrow)
-            {
-                currentChoice = (currentChoice + 1) % options.Length;
-            }
-            else if (keyInfo.Key == ConsoleKey.Enter)
-            {
-                return currentChoice;
-            }
-        }
-    }
-}
 public class CakeOrder
 {
     public double totalPrice;
@@ -41,7 +16,7 @@ public class CakeOrder
         selectedCake = "";
         orderInfo = "";
     }
-    public void PlaceOrder()
+    public void POrder()
     {
         int currentChoice = 0;
         string[] options = { "Форма торта", "Размер торта", "Вкус коржей", "Количество коржей", "Глазурь", "Декор", "Завершить заказ" };
@@ -81,7 +56,7 @@ public class CakeOrder
             {
                 if (currentChoice == 6)
                 {
-                    CompleteOrder();
+                    COrder();
                     break;
                 }
                 else
@@ -92,17 +67,17 @@ public class CakeOrder
                     }
                     if (currentChoice == 0)
                     {
-                        selectedCake += ChooseCakeForm(out double formPrice);
+                        selectedCake += CF(out double formPrice);
                         totalPrice += formPrice;
                     }
                     else if (currentChoice == 1)
                     {
-                        selectedCake += ChooseCakeSize(out double sizePrice);
+                        selectedCake += Cs(out double sizePrice);
                         totalPrice += sizePrice;
                     }
                     else if (currentChoice == 2)
                     {
-                        selectedCake += ChooseCakeTaste(out double tastePrice);
+                        selectedCake += CT(out double tastePrice);
                         totalPrice += tastePrice;
                     }
                     else if (currentChoice == 3)
@@ -112,12 +87,12 @@ public class CakeOrder
                     }
                     else if (currentChoice == 4)
                     {
-                        selectedCake += ChooseCakeGlaze(out double glazePrice);
+                        selectedCake += CG(out double glazePrice);
                         totalPrice += glazePrice;
                     }
                     else if (currentChoice == 5)
                     {
-                        selectedCake += ChooseCakeDecor(out double decorPrice);
+                        selectedCake += CD(out double decorPrice);
                         totalPrice += decorPrice;
                     }
                 }
@@ -128,9 +103,35 @@ public class CakeOrder
             }
         }
     }
-    public string ChooseCakeForm(out double formPrice)
+    public static class ArrowMenu
     {
-        string[] formOptions = { "Круг", "Квадрат", "Треугольник", "Сердечко" };
+        public static int ShowMenu(string[] options)
+        {
+            int currentChoice = 0;
+
+            while (true)
+            {
+                ConsoleKeyInfo keyInfo = Console.ReadKey();
+
+                if (keyInfo.Key == ConsoleKey.UpArrow)
+                {
+                    currentChoice = (currentChoice - 1 + options.Length) % options.Length;
+                }
+                else if (keyInfo.Key == ConsoleKey.DownArrow)
+                {
+                    currentChoice = (currentChoice + 1) % options.Length;
+                }
+                else if (keyInfo.Key == ConsoleKey.Enter)
+                {
+                    return currentChoice;
+                }
+                Console.CursorVisible = false;
+            }
+        }
+    }
+    public string CF(out double formPrice)
+    {
+        string[] formOptions = { "Круг", "Квадрат", "Треугольник", "Сердце" };
         double[] formPrices = { 500, 450, 500, 800 };
 
         int currentChoice = 0;
@@ -146,11 +147,11 @@ public class CakeOrder
             {
                 if (i == currentChoice)
                 {
-                    Console.Write("-> ");
+                    Console.Write("->");
                 }
                 else
                 {
-                    Console.Write("   ");
+                    Console.Write("  ");
                 }
                 Console.WriteLine($"{formOptions[i]} - {formPrices[i]} рублей");
             }
@@ -177,10 +178,10 @@ public class CakeOrder
             }
         }
     }
-    public string ChooseCakeTaste(out double tastePrice)
+    public string CT(out double tastePrice)
     {
-        string[] tasteOptions = { "Ванильный", "Шоколадный", "Клубничный"};
-        double[] tastePrices = { 100, 100, 150};
+        string[] tasteOptions = { "Ванильный", "Шоколадный", "Клубничный" };
+        double[] tastePrices = { 100, 100, 150 };
 
         int currentChoice = 0;
 
@@ -195,11 +196,11 @@ public class CakeOrder
             {
                 if (i == currentChoice)
                 {
-                    Console.Write("-> ");
+                    Console.Write("->");
                 }
                 else
                 {
-                    Console.Write("   ");
+                    Console.Write("  ");
                 }
                 Console.WriteLine($"{tasteOptions[i]} - {tastePrices[i]} рублей");
             }
@@ -226,7 +227,7 @@ public class CakeOrder
             }
         }
     }
-    public string ChooseCakeSize(out double sizePrice)
+    public string Cs(out double sizePrice)
     {
         string[] sizeOptions = { "Маленький ", "Обычный", "Большой " };
         double[] sizePrices = { 1000, 1200, 2000 };
@@ -293,11 +294,11 @@ public class CakeOrder
             {
                 if (i == currentChoice)
                 {
-                    Console.Write("-> ");
+                    Console.Write("->");
                 }
                 else
                 {
-                    Console.Write("   ");
+                    Console.Write("  ");
                 }
                 Console.WriteLine($"{quantityOptions[i]} - {quantityPrices[i]} рублей");
             }
@@ -324,10 +325,10 @@ public class CakeOrder
             }
         }
     }
-    public string ChooseCakeDecor(out double decorPrice)
+    public string CD(out double dPrice)
     {
-        string[] decorOptions = { "Шоколадная", "Ягодная", "Ванильная" };
-        double[] decorPrices = { 150, 150, 150 };
+        string[] dOptions = { "Шоколадная", "Ягодная", "Ванильная" };
+        double[] dPrices = { 150, 150, 150 };
 
         int currentChoice = 0;
 
@@ -338,7 +339,7 @@ public class CakeOrder
             Console.WriteLine("Выберите декор:");
             Console.WriteLine("-----------------------");
 
-            for (int i = 0; i < decorOptions.Length; i++)
+            for (int i = 0; i < dOptions.Length; i++)
             {
                 if (i == currentChoice)
                 {
@@ -348,38 +349,36 @@ public class CakeOrder
                 {
                     Console.Write("  ");
                 }
-                Console.WriteLine($"{decorOptions[i]} - {decorPrices[i]} рублей");
+                Console.WriteLine($"{dOptions[i]} - {dPrices[i]} рублей");
             }
 
             ConsoleKeyInfo keyInfo = Console.ReadKey();
 
             if (keyInfo.Key == ConsoleKey.UpArrow)
             {
-                currentChoice = (currentChoice - 1 + decorOptions.Length) % decorOptions.Length;
+                currentChoice = (currentChoice - 1 + dOptions.Length) % dOptions.Length;
             }
             else if (keyInfo.Key == ConsoleKey.DownArrow)
             {
-                currentChoice = (currentChoice + 1) % decorOptions.Length;
+                currentChoice = (currentChoice + 1) % dOptions.Length;
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                decorPrice = decorPrices[currentChoice];
-                return decorOptions[currentChoice];
+                dPrice = dPrices[currentChoice];
+                return dOptions[currentChoice];
             }
             else if (keyInfo.Key == ConsoleKey.Escape)
             {
-                decorPrice = 0;
+                dPrice = 0;
                 return "Не выбрано";
             }
         }
     }
-    public string ChooseCakeGlaze(out double glazePrice)
+    public string CG(out double glazePrice)
     {
         string[] glazeOptions = { "Шоколад", "Крем", "Ваниль" };
         double[] glazePrices = { 100, 250, 400 };
-
         int currentChoice = 0;
-
         while (true)
         {
             Console.Clear();
@@ -399,7 +398,6 @@ public class CakeOrder
                 }
                 Console.WriteLine($"{glazeOptions[i]} - {glazePrices[i]} рублей");
             }
-
             ConsoleKeyInfo keyInfo = Console.ReadKey();
 
             if (keyInfo.Key == ConsoleKey.UpArrow)
@@ -422,7 +420,7 @@ public class CakeOrder
             }
         }
     }
-    public void CompleteOrder()
+    public void COrder()
     {
         Console.WriteLine("Заказ завершен. Цена: " + totalPrice);
         Console.WriteLine("Ваш торт: " + selectedCake);
@@ -436,7 +434,6 @@ public class CakeOrder
 
         string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
         string filePath = Path.Combine(desktopPath, "Эщкере.txt");
-
         try
         {
             File.AppendAllText(filePath, orderInfo + Environment.NewLine);
@@ -452,10 +449,10 @@ public class CakeOrder
         while (true)
         {
             CakeOrder order = new CakeOrder();
-            order.PlaceOrder();
+            order.POrder();
             Console.WriteLine("Желаете оформить еще один заказ? (Да/Нет)");
             string response = Console.ReadLine();
-            if (response.ToLower() != "да")
+            if (response.ToUpper() != "ДА")
             {
                 break;
             }
