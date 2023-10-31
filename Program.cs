@@ -1,9 +1,9 @@
-sing System;
+using System;
 using System.IO;
 public class CakeOrder
 {
     public double totalPrice;
-    public string selectedCake;
+    public string sc;
     public string orderInfo;
 
     public static int ShowSubMenu(string[] options)
@@ -13,7 +13,7 @@ public class CakeOrder
     public CakeOrder()
     {
         totalPrice = 0;
-        selectedCake = "";
+        sc = "";
         orderInfo = "";
     }
     public void POrder()
@@ -42,7 +42,7 @@ public class CakeOrder
             Console.WriteLine();
             Console.WriteLine("Цена: " + totalPrice);
             Console.Write("Ваш торт: ");
-            Console.WriteLine(selectedCake);
+            Console.WriteLine(sc);
             ConsoleKeyInfo keyInfo = Console.ReadKey();
             if (keyInfo.Key == ConsoleKey.UpArrow)
             {
@@ -61,43 +61,43 @@ public class CakeOrder
                 }
                 else
                 {
-                    if (!string.IsNullOrEmpty(selectedCake))
+                    if (!string.IsNullOrEmpty(sc))
                     {
-                        selectedCake += ", ";
+                        sc += ", ";
                     }
                     if (currentChoice == 0)
                     {
-                        selectedCake += CF(out double formPrice);
+                        sc += CF(out double formPrice);
                         totalPrice += formPrice;
                     }
                     else if (currentChoice == 1)
                     {
-                        selectedCake += Cs(out double sizePrice);
+                        sc += Cs(out double sizePrice);
                         totalPrice += sizePrice;
                     }
                     else if (currentChoice == 2)
                     {
-                        selectedCake += CT(out double tastePrice);
+                        sc += CT(out double tastePrice);
                         totalPrice += tastePrice;
                     }
                     else if (currentChoice == 3)
                     {
-                        selectedCake += ChooseCakeQuantity(out double quantityPrice);
+                        sc += ChooseCakeQuantity(out double quantityPrice);
                         totalPrice += quantityPrice;
                     }
                     else if (currentChoice == 4)
                     {
-                        selectedCake += CG(out double glazePrice);
+                        sc += CG(out double glazePrice);
                         totalPrice += glazePrice;
                     }
                     else if (currentChoice == 5)
                     {
-                        selectedCake += CD(out double decorPrice);
+                        sc += CD(out double decorPrice);
                         totalPrice += decorPrice;
                     }
                     else if (currentChoice == 6)
                     {
-                        selectedCake += suh(out double suhPrice);
+                        sc += suh(out double suhPrice);
                         totalPrice += suhPrice;
                     }
                 }
@@ -474,13 +474,13 @@ public class CakeOrder
     public void COrder()
     {
         Console.WriteLine("Заказ завершен. Цена: " + totalPrice);
-        Console.WriteLine("Ваш торт: " + selectedCake);
+        Console.WriteLine("Ваш торт: " + sc);
 
         DateTime currentTime = DateTime.Now;
         string orderTime = currentTime.ToString("dd.MM.yyyy HH:mm:ss");
 
         orderInfo = "Время завершения заказа: " + orderTime + Environment.NewLine +
-                    "Содержимое торта: " + selectedCake + Environment.NewLine +
+                    "Содержимое торта: " + sc + Environment.NewLine +
                     "Конечная цена: " + totalPrice.ToString("C");
 
         string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
