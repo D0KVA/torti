@@ -1,4 +1,4 @@
-using System;
+sing System;
 using System.IO;
 public class CakeOrder
 {
@@ -19,13 +19,13 @@ public class CakeOrder
     public void POrder()
     {
         int currentChoice = 0;
-        string[] options = { "Форма торта", "Размер торта", "Вкус коржей", "Количество коржей", "Глазурь", "Декор", "Завершить заказ" };
+        string[] options = { "Форма торта", "Размер торта", "Вкус коржей", "Количество коржей", "Глазурь", "Декор", "Сухари", "Завершить заказ" };
         while (true)
         {
             Console.Clear();
             Console.WriteLine("Заказ тортов на ваш выбор!");
             Console.WriteLine("Выберите параметр торта");
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("---------------------------------");
 
             for (int i = 0; i < options.Length; i++)
             {
@@ -54,7 +54,7 @@ public class CakeOrder
             }
             else if (keyInfo.Key == ConsoleKey.Enter)
             {
-                if (currentChoice == 6)
+                if (currentChoice == 7)
                 {
                     COrder();
                     break;
@@ -94,6 +94,11 @@ public class CakeOrder
                     {
                         selectedCake += CD(out double decorPrice);
                         totalPrice += decorPrice;
+                    }
+                    else if (currentChoice == 6)
+                    {
+                        selectedCake += suh(out double suhPrice);
+                        totalPrice += suhPrice;
                     }
                 }
             }
@@ -140,8 +145,8 @@ public class CakeOrder
         {
             Console.Clear();
             Console.WriteLine("Для выхода нажмите Escape");
-            Console.WriteLine("Выберите форму торта:");
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("Выберите форму:");
+            Console.WriteLine("---------------------------------");
 
             for (int i = 0; i < formOptions.Length; i++)
             {
@@ -190,7 +195,7 @@ public class CakeOrder
             Console.Clear();
             Console.WriteLine("Для выхода нажмите Escape");
             Console.WriteLine("Выберите вкус коржей:");
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("---------------------------------");
 
             for (int i = 0; i < tasteOptions.Length; i++)
             {
@@ -238,8 +243,8 @@ public class CakeOrder
         {
             Console.Clear();
             Console.WriteLine("Для выхода нажмите Escape");
-            Console.WriteLine("Выберите размер торта:");
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("Выберите размер:");
+            Console.WriteLine("---------------------------------");
 
             for (int i = 0; i < sizeOptions.Length; i++)
             {
@@ -288,7 +293,7 @@ public class CakeOrder
             Console.Clear();
             Console.WriteLine("Для выхода нажмите Escape");
             Console.WriteLine("Выберите количество коржей:");
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("---------------------------------");
 
             for (int i = 0; i < quantityOptions.Length; i++)
             {
@@ -336,8 +341,8 @@ public class CakeOrder
         {
             Console.Clear();
             Console.WriteLine("Для выхода нажмите Escape");
-            Console.WriteLine("Выберите декор:");
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("Выберите дЭкор:");
+            Console.WriteLine("---------------------------------");
 
             for (int i = 0; i < dOptions.Length; i++)
             {
@@ -384,7 +389,7 @@ public class CakeOrder
             Console.Clear();
             Console.WriteLine("Для выхода нажмите Escape");
             Console.WriteLine("Выберите глазурь:");
-            Console.WriteLine("-----------------------");
+            Console.WriteLine("---------------------------------");
 
             for (int i = 0; i < glazeOptions.Length; i++)
             {
@@ -416,6 +421,52 @@ public class CakeOrder
             else if (keyInfo.Key == ConsoleKey.Escape)
             {
                 glazePrice = 0;
+                return "Не выбрано";
+            }
+        }
+    }
+    public string suh(out double suhPrice)
+    {
+        string[] suhOptions = { "Дефолтные", "Сырные", "Мягкие", "На ваш выбор" };
+        double[] suhPrices = { 50, 100, 200, 300 };
+        int currentChoice = 0;
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("Для выхода нажмите Escape");
+            Console.WriteLine("Выберите сухари, для присыпки:");
+            Console.WriteLine("---------------------------------");
+
+            for (int i = 0; i < suhOptions.Length; i++)
+            {
+                if (i == currentChoice)
+                {
+                    Console.Write("->");
+                }
+                else
+                {
+                    Console.Write("  ");
+                }
+                Console.WriteLine($"{suhOptions[i]} - {suhPrices[i]} рублей");
+            }
+            ConsoleKeyInfo keyInfo = Console.ReadKey();
+
+            if (keyInfo.Key == ConsoleKey.UpArrow)
+            {
+                currentChoice = (currentChoice - 1 + suhOptions.Length) % suhOptions.Length;
+            }
+            else if (keyInfo.Key == ConsoleKey.DownArrow)
+            {
+                currentChoice = (currentChoice + 1) % suhOptions.Length;
+            }
+            else if (keyInfo.Key == ConsoleKey.Enter)
+            {
+                suhPrice = suhPrices[currentChoice];
+                return suhOptions[currentChoice];
+            }
+            else if (keyInfo.Key == ConsoleKey.Escape)
+            {
+                suhPrice = 0;
                 return "Не выбрано";
             }
         }
